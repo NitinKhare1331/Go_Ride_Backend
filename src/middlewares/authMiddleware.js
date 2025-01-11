@@ -1,6 +1,7 @@
 import UserModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/serverConfig.js";
+import BlacklistTokenModel from "../models/blacklistTokenModel.js";
 
 export const authMiddleware = async (req, res, next) => {
 
@@ -10,6 +11,11 @@ export const authMiddleware = async (req, res, next) => {
         return res.status(401).json({ message: "Unauthorized" });
     }
 
+    const isblacklisted = await BlacklistTokenModel.findOne({ token: token });
+
+    if (isblacklisted) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
         const user = await UserModel.findById(decoded._id);
