@@ -5,6 +5,7 @@ import { createServer } from "http";
 import connectDB from "./config/dbConfig.js";
 import userRoutes from './routes/userRoute.js';
 import cookieParser from "cookie-parser";
+import wheelmanRoutes from "./routes/wheelmanRoute.js";
 
 
 const app = express();
@@ -20,6 +21,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/wheelman', wheelmanRoutes);
 
 server.listen(PORT, async () => {
     console.log(`Server is running on PORT ${PORT}`);
