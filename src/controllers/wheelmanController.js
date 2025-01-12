@@ -11,7 +11,7 @@ export const registerWheelmanController = async (req, res, next) => {
             return res.status(400).json({errors: error.array() });
         }
 
-        const { wheelmanName, email, password, vehicle } = req.body;
+        const { fullname, email, password, vehicle } = req.body;
 
         const isWheelmanAlreadyExist = await WheelmanModel.findOne({ email });
 
@@ -22,7 +22,8 @@ export const registerWheelmanController = async (req, res, next) => {
         const hashedPassword = await WheelmanModel.hashPassword(password);
 
         const newWheelman = await registerWheelmanService({
-            wheelmanName,
+            firstname: fullname.firstname,
+            lastname: fullname.lastname,
             email,
             password: hashedPassword,
             color: vehicle.color,

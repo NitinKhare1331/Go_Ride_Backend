@@ -1,7 +1,8 @@
 import WheelmanModel from "../models/wheelmanModel.js";
 
 export const registerWheelmanService = async ({
-    wheelmanName,
+    firstname,
+    lastname,
     email,
     password,
     color,
@@ -10,12 +11,15 @@ export const registerWheelmanService = async ({
     vehicleType
 }) => {
     try {
-        if(!wheelmanName, !email, !password, !color, !plate, !capacity, !vehicleType) {
+        if(!firstname, !lastname, !email, !password, !color, !plate, !capacity, !vehicleType) {
             throw new Error("All fields are required")
         }
 
         const wheelman = WheelmanModel.create({
-            wheelmanName,
+            fullname: {
+                firstname,
+                lastname
+            },
             email,
             password,
             vehicle: {

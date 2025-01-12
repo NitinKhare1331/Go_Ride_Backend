@@ -4,10 +4,16 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/serverConfig.js";
 
 const wheelmanSchema = new mongoose.Schema({
-    wheelmanName: {
-        type    : String,
-        required: true,
-        minlength: [3, "Name must be at least 3 characters long"],
+    fullname: {
+        firstname: {
+            type: String,
+            required: true,
+            minlength: [3, "First name must be at least 3 characters long"]
+        },
+        lastname: {
+            type: String,
+            minlength: [3, "Last name must be at least 3 characters long"]
+        }
     },
     email: {
         type: String,
@@ -51,7 +57,7 @@ const wheelmanSchema = new mongoose.Schema({
         vehicleType: {
             type: String,
             required: true,
-            enum: ["car", "bike", "auto"],
+            enum: ['car', 'bike', 'auto'],
         },
     },
     location: {
